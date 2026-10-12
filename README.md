@@ -28,18 +28,30 @@ submissions are not touched and are not readable with the key used here.
 
 ```
 somebody saves in the CMS
-   │
-   ├─ a database trigger calls sync.yml, which is the only thing here that
-   │  knows Supabase exists — it reads the CMS and writes content.json into
-   │  .github/content/
-   │
-   ├─ that push starts .github/workflows/content.yml
-   │     (a path filter — a commit anywhere else does not start it at all)
-   │
-   ├─ the file is checked: valid JSON, has a version, lists properties
-   │
-   └─ forwarded to the website, which publishes on push
+   |
+   +- a database trigger calls sync.yml, which is the only thing here that
+   |  knows Supabase exists - it reads the CMS and writes content.json into
+   |  .github/content/, then commits it
+   |
+   +- sync.yml calls content.yml directly
+   |     (a hand edit to .github/content/ starts content.yml by its path
+   |      filter instead; see below for why the automated route cannot)
+   |
+   +- the file is checked: valid JSON, has a version, lists properties
+   |
+   +- forwarded to the website, which publishes on push
 ```
+
+### Why sync.yml calls content.yml instead of letting the push do it
+
+A push made by a workflow using the built-in token does **not** start
+another workflow. GitHub blocks that deliberately, so that a workflow which
+commits cannot trigger itself forever.
+
+So the path filter on `content.yml` never sees the automated commit, and
+`sync.yml` has to hand over explicitly. The path filter is still what a
+**hand** edit uses, and is unchanged. Exactly one of the two routes fires
+per change, so content publishes once.
 
 The database writes a file to a repository and knows nothing else. It has
 never heard of the website, what builds it, or where it is deployed.
@@ -54,9 +66,15 @@ engines.** Both are needed, and neither replaces the other.
 
 Settings → Secrets and variables → Actions.
 
-**Variables** — read by `sync.yml`, which is the one workflow that talks to
-the database. Neither is secret; both already appear in the website's own
-page source.
+**Variables** — optional. `sync.yml` carries both values as defaults, so a
+fresh clone works with nothing configured. Set them only to point at a
+different database. Neither is secret; both already appear in the website's
+own page source, and what the key can read is the public listings — it reads
+an empty list from the applicants table, which holds real submissions.
+
+The first run of this pipeline failed because these were required and had
+never been set. A pipeline that needs a setup step somebody forgot is a
+pipeline that is switched off.
 
 | name | value |
 |---|---|
@@ -82,7 +100,7 @@ whole interface between Supabase and everything else:
 select net.http_post(
   url     := 'https://api.github.com/repos/MTCMarketing/automation--kelley-road-properties/dispatches',
   headers := jsonb_build_object(
-    'Authorization', 'Bearer ' || current_setting('app.github_token'),
+    'Authorization', 'Bearer ' || token,  -- read from the supabase vault
     'Accept',        'application/vnd.github+json',
     'User-Agent',    'kelley-road-cms',
     'Content-Type',  'application/json'
@@ -104,9 +122,17 @@ once, with the last version, rather than five times.
 
 ## When it goes wrong
 
-**Nothing ran.** The workflow only starts when something under
-`.github/content/` changes. A commit elsewhere in this repository will not
-start it, by design.
+**Nothing ran at all.** Check whether the database called out:
+`select id, status_code, error_msg from net._http_response order by id desc;`
+A `204` is GitHub accepting the dispatch. Nothing there means the trigger
+did not fire, or the token in the vault is missing — a missing token is
+warned about in the Postgres log and deliberately does **not** fail the
+save, because refusing somebody's edit over a broken deploy hook has its
+priorities backwards.
+
+**`content.yml` did not run after a hand edit.** It only starts when
+something under `.github/content/` changes. A commit elsewhere in this
+repository will not start it, by design.
 
 **It refused to publish.** The file that arrived was empty, was not valid
 JSON, had no version, or listed no properties at all. The log says which.
