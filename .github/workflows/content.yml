@@ -61,6 +61,24 @@ jobs:
     steps:
       - name: Check out this repository
         uses: actions/checkout@v4
+        with:
+          # The branch tip, NOT the run's default SHA.
+          #
+          # A workflow run checks out the commit that existed when its
+          # trigger fired. sync.yml writes content.json AFTER that moment,
+          # so the default SHA does not contain the content this run exists
+          # to publish - it contains the previous content. The effect is a
+          # pipeline that works, reports success, and ships every change one
+          # edit late, forever. Which looks exactly like a CMS whose changes
+          # never arrive.
+          #
+          # Measured, not reasoned: run 38214277331 started at 0a3e005, the
+          # sync committed edd4b5a carrying version 06:47:29, and the publish
+          # shipped 06:41:46 - the version before it.
+          #
+          # For a push to main the tip IS the pushed commit, so the hand-edit
+          # route behaves identically.
+          ref: main
 
       - name: Check the content is there and is readable
         id: check
