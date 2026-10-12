@@ -49,38 +49,13 @@ jobs:
         id: check
         run: bash scripts/check-content.sh
 
-      # Reports the SHAPE of the credential, never its value: a length, a line
-      # count, and which kind of thing it looks like. curl exits 43 on a header
-      # containing a newline, which is exactly what an SSH key would produce
-      # if it were being used as a bearer token.
-      - name: What kind of credential is configured
-        if: steps.check.outputs.ok == 'true'
-        env:
-          CREDENTIAL: ${{ secrets.AUTOMATION_CONTENT_JSON }}
-        run: |
-          if [ -z "$CREDENTIAL" ]; then
-            echo "AUTOMATION_CONTENT_JSON is not set at all."
-            exit 1
-          fi
-          lines=$(printf '%s' "$CREDENTIAL" | wc -l)
-          chars=$(printf '%s' "$CREDENTIAL" | wc -c)
-          echo "length: $chars characters, $((lines + 1)) line(s)"
-          case "$CREDENTIAL" in
-            *"BEGIN OPENSSH PRIVATE KEY"*|*"BEGIN RSA PRIVATE KEY"*|*"BEGIN PRIVATE KEY"*)
-              echo "kind: an SSH PRIVATE KEY" ;;
-            ssh-rsa*|ssh-ed25519*|ecdsa-*)
-              echo "kind: an SSH PUBLIC key" ;;
-            github_pat_*) echo "kind: a fine-grained personal access token" ;;
-            ghp_*|gho_*|ghs_*) echo "kind: a classic personal access token" ;;
-            *) echo "kind: unrecognised" ;;
-          esac
-
       - name: Publish it to the website
         if: steps.check.outputs.ok == 'true'
         env:
-          # Write access to the website repository only. This repository is
+          # A deploy key for the website repository, used over SSH. Write
+          # access to that one repository and nothing else. This repository is
           # public; its secrets are not, and are not exposed to pull requests
           # from forks.
-          GITHUB_TOKEN: ${{ secrets.AUTOMATION_CONTENT_JSON }}
+          DEPLOY_KEY: ${{ secrets.AUTOMATION_CONTENT_JSON }}
           TARGET_REPO: MTCMarketing/source--kelley-roads-property-management
         run: bash scripts/publish-content.sh

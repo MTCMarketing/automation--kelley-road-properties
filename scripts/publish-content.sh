@@ -1,78 +1,81 @@
 #!/usr/bin/env bash
 #
-# Commits content.json to the website repository, which publishes on push.
+# Publishes content.json to the website repository, which builds on push.
 #
-# Done through the GitHub API rather than by cloning: the website repository
-# is private and several hundred megabytes, and this needs to write one file.
-# A clone would spend most of the run downloading things it will not read.
+# Over SSH, with a deploy key. An earlier version used the REST API with a
+# bearer token and failed with curl exit 43 on every run: the credential is a
+# key pair, 50 lines of it, and a newline in an Authorization header is not
+# something curl will send. The shape of the credential decides the transport.
 #
-# The file published is the one the CMS wrote into .github/content/, passed
-# through unchanged. This step moves it; it does not interpret it.
-#
-# The commit message carries the deployment marker exactly once. It is matched
-# anywhere in the message, so it must not appear a second time, even in prose.
+# The clone is deliberately minimal. The website repository carries its
+# photography and is large; this needs to write one file. --filter=blob:none
+# with a sparse checkout fetches the history shape and a single blob rather
+# than the whole working tree.
 
 set -euo pipefail
 
-: "${GITHUB_TOKEN:?AUTOMATION_CONTENT_JSON is not set — add it under Settings, Secrets}"
+: "${DEPLOY_KEY:?AUTOMATION_CONTENT_JSON is not set}"
 : "${TARGET_REPO:?TARGET_REPO is not set}"
 
-API="https://api.github.com/repos/${TARGET_REPO}/contents/content.json"
+SOURCE="${GITHUB_WORKSPACE:-$PWD}/.github/content/content.json"
 
-auth=(-H "Authorization: Bearer ${GITHUB_TOKEN}"
-      -H "Accept: application/vnd.github+json"
-      -H "X-GitHub-Api-Version: 2022-11-28")
+[ -f "$SOURCE" ] || { echo "No content.json to publish."; exit 1; }
 
-# The file's current sha, which the API needs in order to replace it. Absent
-# the first time, which is a create rather than an update.
-sha=$(curl -fsS "${auth[@]}" "$API" 2>/dev/null \
-  | node -e 'let b="";process.stdin.on("data",c=>b+=c);process.stdin.on("end",()=>{try{console.log(JSON.parse(b).sha||"")}catch{console.log("")}})' \
-  || echo "")
+# ── the key ───────────────────────────────────────────────
+# To a file, because ssh refuses a key readable by anyone else. Written under
+# the runner's home rather than the workspace, so a later step that archives
+# the checkout cannot pick it up.
+key="$HOME/.ssh/content_deploy"
+mkdir -p "$HOME/.ssh"
+chmod 700 "$HOME/.ssh"
 
-version=$(node -e 'console.log(JSON.parse(require("fs").readFileSync(".github/content/content.json","utf8")).version)')
-count=$(node -e 'const c=JSON.parse(require("fs").readFileSync(".github/content/content.json","utf8"));console.log(c.properties?c.properties.length:0)')
+# printf with an explicit newline: ssh rejects a key that does not end in one,
+# and the stored secret does not carry it.
+printf '%s\n' "$DEPLOY_KEY" > "$key"
+chmod 600 "$key"
 
-message="Content updated from the CMS [deploy:live]
+ssh-keyscan -t rsa,ecdsa,ed25519 github.com >> "$HOME/.ssh/known_hosts" 2>/dev/null
+
+export GIT_SSH_COMMAND="ssh -i $key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes"
+
+# ── the clone ─────────────────────────────────────────────
+work="$(mktemp -d)"
+
+echo "Fetching the website repository..."
+git clone --quiet --depth 1 --filter=blob:none --sparse \
+  "git@github.com:${TARGET_REPO}.git" "$work"
+
+cd "$work"
+git sparse-checkout set --no-cone content.json
+
+cp "$SOURCE" content.json
+git add content.json
+
+# ── is there anything to publish? ─────────────────────────
+# A build costs about five minutes of a fixed monthly allowance, so an
+# identical file must not spend one. The comparison lives here because git
+# has already done the diff.
+if git diff --cached --quiet; then
+  echo "The website already has this exact content. Nothing published, no build spent."
+  exit 0
+fi
+
+version=$(node -e 'console.log(JSON.parse(require("fs").readFileSync("content.json","utf8")).version)')
+count=$(node -e 'const c=JSON.parse(require("fs").readFileSync("content.json","utf8"));console.log(c.properties?c.properties.length:0)')
+
+# The deployment marker appears here exactly once. It is matched anywhere in
+# the message, so it must never be written again, not even in prose.
+git -c user.name="Kelley Road automation" \
+    -c user.email="automation@kelleyroadproperties.com" \
+    commit --quiet -m "Content updated from the CMS [deploy:live]
 
 ${count} properties, version ${version}.
 
-Written by automation--kelley-road-properties. The website builds from this
-file rather than reading the CMS directly, so the database can be replaced
+Published by automation--kelley-road-properties. The website builds from this
+file rather than reading the database itself, so the database can be replaced
 without the website knowing."
 
-payload=$(node --input-type=module -e '
-import fs from "node:fs";
-const body = {
-  message: process.argv[1],
-  content: fs.readFileSync(".github/content/content.json").toString("base64"),
-  committer: { name: "Kelley Road automation", email: "automation@kelleyroadproperties.com" },
-};
-if (process.argv[2]) body.sha = process.argv[2];
-console.log(JSON.stringify(body));
-' "$message" "$sha")
+echo "Publishing ${count} properties (version ${version})..."
+git push --quiet origin HEAD:main
 
-echo "Publishing ${count} properties (version ${version}) to ${TARGET_REPO}..."
-
-# From a file, not from an argument. The body carries the whole catalogue
-# base64-encoded - tens of kilobytes - and passing that inline made curl exit
-# 43 rather than send it. A request body belongs on stdin regardless of size;
-# at this size it is not optional.
-printf '%s' "$payload" > payload.json
-
-response=$(curl -fsS -X PUT "${auth[@]}" --data-binary @payload.json "$API")
-
-rm -f payload.json
-
-printf '%s' "$response" | node -e '
-let b = "";
-process.stdin.on("data", (c) => (b += c));
-process.stdin.on("end", () => {
-  const r = JSON.parse(b);
-  if (r.commit && r.commit.sha) {
-    console.log("Committed " + r.commit.sha.slice(0, 7) + " — the website is rebuilding.");
-  } else {
-    console.error("The API did not report a commit. Nothing was published.");
-    process.exit(1);
-  }
-});
-'
+echo "Published. The website is rebuilding."
