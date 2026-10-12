@@ -1,0 +1,639 @@
+{
+  "note": "Generated from the CMS. Do not edit by hand.",
+  "version": "2026-10-12T00:45:43.610133+00:00",
+  "generatedAt": "2026-10-12T06:07:30.701Z",
+  "properties": [
+    {
+      "id": "kr-001",
+      "area": 1050,
+      "rent": 2400,
+      "slug": "oakwood-apartments",
+      "type": "Apartment",
+      "title": "Turtleback Apartments",
+      "summary": "A two-bedroom apartment in a well-kept building, close to everyday amenities and managed by a team you can reach.",
+      "bedrooms": 2,
+      "featured": true,
+      "imageAlt": "Upper floors of a modern white apartment block, its stepped balconies fronted with clear glass balustrades and dark grey handrails, warm wood-framed windows catching the sun against a deep blue sky.",
+      "imageKey": "prop-1",
+      "listedOn": "2026-08-12",
+      "location": "Worcester, Massachusetts",
+      "rentFrom": 2400,
+      "amenities": [
+        "Parking",
+        "In-Unit Laundry",
+        "Air Conditioning",
+        "Elevator",
+        "Outdoor Space",
+        "Dishwasher"
+      ],
+      "bathrooms": 1,
+      "publication": "published",
+      "availability": "Unavailable"
+    },
+    {
+      "id": "kr-002",
+      "area": 720,
+      "rent": 1195,
+      "slug": "bristol-court",
+      "type": "Apartment",
+      "title": "Beth Court",
+      "summary": "A bright one-bedroom home with generous windows and a straightforward, comfortable layout.",
+      "bedrooms": 1,
+      "imageAlt": "A sunlit apartment living room with a low cream sectional sofa, dark charcoal cushions, a round glass-topped coffee table holding pillar candles on a brass tray, and tall black-framed windows onto a leafy street.",
+      "imageKey": "prop-2",
+      "listedOn": "2026-08-26",
+      "location": "Cambridge, Massachusetts",
+      "rentFrom": 1195,
+      "amenities": [
+        "Parking",
+        "Air Conditioning",
+        "Dishwasher"
+      ],
+      "bathrooms": 1,
+      "publication": "draft",
+      "availability": "Unavailable"
+    },
+    {
+      "id": "kr-003",
+      "area": 1480,
+      "rent": 1995,
+      "slug": "warm-springs-townhomes",
+      "type": "Townhome",
+      "title": "Turtleback Homes",
+      "summary": "A three-bedroom townhome with private parking and room for a growing household, on an established residential street.",
+      "bedrooms": 3,
+      "featured": true,
+      "imageAlt": "A receding row of three-storey red brick townhouses with cream limestone trim, slate mansard roofs, dormer windows and private garages, fronted by clipped lawns on a quiet sunny street.",
+      "imageKey": "prop-3",
+      "listedOn": "2026-07-30",
+      "location": "Springfield, Massachusetts",
+      "rentFrom": 1995,
+      "amenities": [
+        "Parking",
+        "In-Unit Laundry",
+        "Pet Friendly",
+        "Outdoor Space",
+        "Dishwasher"
+      ],
+      "bathrooms": 2,
+      "publication": "published",
+      "availability": "Unavailable"
+    },
+    {
+      "id": "kr-004",
+      "area": 540,
+      "rent": 995,
+      "slug": "linden-studios",
+      "type": "Studio",
+      "title": "Linden Studios",
+      "summary": "A well-proportioned studio that makes the most of its space, suited to a single resident or a couple.",
+      "bedrooms": 0,
+      "imageAlt": "A compact white studio with a solid-wood bed frame and crisp white bedding, two black wire cage pendants hanging either side and a pair of framed prints centred above the headboard.",
+      "imageKey": "prop-4",
+      "listedOn": "2026-08-19",
+      "location": "Somerville, Massachusetts",
+      "rentFrom": 995,
+      "amenities": [
+        "Air Conditioning",
+        "Elevator"
+      ],
+      "bathrooms": 1,
+      "publication": "published",
+      "availability": "Unavailable"
+    },
+    {
+      "id": "kr-005",
+      "area": 1120,
+      "rent": 0,
+      "slug": "maple-ridge",
+      "type": "Apartment",
+      "title": "Maple Ridge",
+      "summary": "A two-bedroom, two-bathroom home in a landscaped community with shared outdoor space.",
+      "bedrooms": 2,
+      "imageAlt": "A long three-storey apartment community in white board-and-batten siding with stacked stone bases, black balcony railings and gabled porches, running down a landscaped street of clipped shrubs and lamp posts.",
+      "imageKey": "prop-5",
+      "listedOn": "2026-08-05",
+      "location": "Lowell, Massachusetts",
+      "rentFrom": null,
+      "amenities": [
+        "Parking",
+        "In-Unit Laundry",
+        "Pet Friendly",
+        "Outdoor Space",
+        "Fitness Center"
+      ],
+      "bathrooms": 2,
+      "publication": "published",
+      "availability": "Unavailable"
+    },
+    {
+      "id": "kr-006",
+      "area": 680,
+      "rent": 1145,
+      "slug": "cedar-line-apartments",
+      "type": "Apartment",
+      "title": "Cedar Line Apartments",
+      "summary": "A one-bedroom apartment on a quiet street, within easy reach of the shops and services of the neighbourhood.",
+      "bedrooms": 1,
+      "imageAlt": "A cream and white multi-storey apartment building photographed from below, showing five levels of balconies with clear glass railings and white piers between them against a blue sky.",
+      "imageKey": "prop-6",
+      "listedOn": "2026-08-28",
+      "location": "Quincy, Massachusetts",
+      "rentFrom": 1145,
+      "amenities": [
+        "Parking",
+        "Air Conditioning",
+        "Dishwasher",
+        "Elevator"
+      ],
+      "bathrooms": 1,
+      "publication": "published",
+      "availability": "Unavailable"
+    },
+    {
+      "id": "kr-007",
+      "area": 1620,
+      "rent": 2250,
+      "slug": "foothill-terrace",
+      "type": "Townhome",
+      "title": "Foothill Terrace",
+      "summary": "A three-bedroom townhome with a private garage and a garden, on the edge of open country.",
+      "bedrooms": 3,
+      "featured": true,
+      "imageAlt": "A row of two-storey townhomes with beige and grey lap siding, gabled roofs, a white two-car garage door and a concrete driveway, with mulched shrub beds and a mown lawn under a partly cloudy sky.",
+      "imageKey": "prop-7",
+      "listedOn": "2026-08-31",
+      "location": "Newton, Massachusetts",
+      "rentFrom": 2250,
+      "amenities": [
+        "Parking",
+        "In-Unit Laundry",
+        "Pet Friendly",
+        "Outdoor Space",
+        "Air Conditioning",
+        "Dishwasher"
+      ],
+      "bathrooms": 2,
+      "photoCount": 20,
+      "availability": "Available Soon"
+    },
+    {
+      "id": "kr-008",
+      "area": 1080,
+      "rent": 0,
+      "slug": "willow-bend",
+      "type": "Apartment",
+      "title": "Willow Bend",
+      "summary": "A two-bedroom apartment with a second bathroom and a shared residents gym, suited to sharers or a small family.",
+      "bedrooms": 2,
+      "imageAlt": "A bright open-plan living and dining room with a beige corner sofa, a white media console with a flat-screen television, pale stone tile floor, a wood dining table and floor-to-ceiling glass doors onto a decked patio.",
+      "imageKey": "prop-8",
+      "listedOn": "2026-08-08",
+      "location": "Brockton, Massachusetts",
+      "rentFrom": null,
+      "amenities": [
+        "Parking",
+        "In-Unit Laundry",
+        "Air Conditioning",
+        "Fitness Center",
+        "Elevator"
+      ],
+      "bathrooms": 2,
+      "publication": "published",
+      "availability": "Contact for Availability"
+    },
+    {
+      "id": "kr-009",
+      "area": 505,
+      "rent": 965,
+      "slug": "vista-park-studios",
+      "type": "Studio",
+      "title": "Vista Park Studios",
+      "summary": "A compact studio close to the park, with a separate bathroom and a kitchen along one wall.",
+      "bedrooms": 0,
+      "imageAlt": "A sunlit studio apartment with a taupe modular sofa beside floor-to-ceiling windows, a white brick column with a slim counter shelf and cage pendant lights, and a bed with a sheepskin throw in the sleeping area beyond.",
+      "imageKey": "prop-9",
+      "listedOn": "2026-09-01",
+      "location": "Salem, Massachusetts",
+      "rentFrom": 965,
+      "amenities": [
+        "Air Conditioning",
+        "Elevator"
+      ],
+      "bathrooms": 1,
+      "publication": "published",
+      "availability": "Available Soon"
+    },
+    {
+      "id": "kr-010",
+      "area": 1740,
+      "rent": 2150,
+      "slug": "rosewood-house",
+      "type": "House",
+      "title": "Rosewood House",
+      "summary": "A detached three-bedroom house with a driveway and an enclosed rear garden, on a residential street.",
+      "bedrooms": 3,
+      "imageAlt": "The covered front porch of a single-storey house with cream board-and-batten siding, white tapered columns on stone pedestals, a stone porch base and steps, a bank of white-mullioned windows, two dark wicker chairs and a mown lawn.",
+      "imageKey": "prop-10",
+      "listedOn": "2026-07-22",
+      "location": "Plymouth, Massachusetts",
+      "rentFrom": 2150,
+      "amenities": [
+        "Parking",
+        "In-Unit Laundry",
+        "Pet Friendly",
+        "Outdoor Space",
+        "Dishwasher"
+      ],
+      "bathrooms": 2,
+      "photoCount": 17,
+      "availability": "Contact for Availability"
+    },
+    {
+      "id": "kr-011",
+      "area": 940,
+      "rent": 1325,
+      "slug": "larkspur-commons",
+      "type": "Apartment",
+      "title": "Larkspur Commons",
+      "summary": "A two-bedroom apartment with shared grounds and allocated parking, at the lower end of the range.",
+      "bedrooms": 2,
+      "imageAlt": "A covered apartment balcony with a white painted railing holding planter boxes of flowers, a slatted timber deck, a small bistro table and two chairs, and a facing row of brick buildings with white balconies across a green courtyard.",
+      "imageKey": "prop-11",
+      "listedOn": "2026-08-15",
+      "location": "Framingham, Massachusetts",
+      "rentFrom": 1325,
+      "amenities": [
+        "Parking",
+        "Pet Friendly",
+        "Outdoor Space"
+      ],
+      "bathrooms": 1,
+      "publication": "published",
+      "availability": "Unavailable"
+    },
+    {
+      "id": "kr-012",
+      "area": 1290,
+      "rent": 1785,
+      "slug": "summit-court",
+      "type": "Townhome",
+      "title": "Summit Court",
+      "summary": "A two-bedroom townhome over two floors, with parking to the front and a small terrace behind.",
+      "bedrooms": 2,
+      "imageAlt": "A row of attached red-brick townhouses with white porch railings and columns, gabled dormers and bay windows, fronted by a mown lawn, low shrubs, young street trees and a black lamp post.",
+      "imageKey": "prop-12",
+      "listedOn": "2026-08-22",
+      "location": "Waltham, Massachusetts",
+      "rentFrom": 1785,
+      "amenities": [
+        "Parking",
+        "In-Unit Laundry",
+        "Air Conditioning",
+        "Dishwasher",
+        "Outdoor Space"
+      ],
+      "bathrooms": 2,
+      "photoCount": 19,
+      "availability": "Available Soon"
+    },
+    {
+      "id": "local-testing",
+      "area": 1900,
+      "rent": 0,
+      "slug": "testing",
+      "type": "Apartment",
+      "title": "testing",
+      "images": [
+        {
+          "id": "img-1789677228927-her-omg.jpg",
+          "alt": "",
+          "src": "https://ckfedtlwvbspubbauqvn.supabase.co/storage/v1/object/public/images/library/1789677228927-her-omg.jpg",
+          "label": "testing",
+          "roles": [
+            "gallery",
+            "featured"
+          ],
+          "category": "Exterior"
+        }
+      ],
+      "content": {
+        "title": "welcome to testing ",
+        "paragraphs": [
+          "test"
+        ]
+      },
+      "similar": {
+        "pinned": [
+          "bristol-court",
+          "cedar-line-apartments",
+          "oakwood-apartments"
+        ]
+      },
+      "summary": "testign the text for poreprty ",
+      "bedrooms": 1,
+      "imageAlt": "",
+      "imageKey": "",
+      "location": "Meridian, Idaho",
+      "rentFrom": null,
+      "amenities": [
+        "Parking",
+        "Dishwasher",
+        "Fitness Center"
+      ],
+      "bathrooms": 1,
+      "deletedAt": null,
+      "floorPlans": [],
+      "publication": "published",
+      "availability": "Available Soon"
+    },
+    {
+      "id": "local-new-testing",
+      "area": 1023,
+      "rent": 0,
+      "slug": "new-testing",
+      "type": "House",
+      "title": "new-testing ",
+      "images": [
+        {
+          "id": "img-1",
+          "alt": "",
+          "src": "https://ckfedtlwvbspubbauqvn.supabase.co/storage/v1/object/public/images/library/1789679633812-windows-11-dark-mode-blue-stock-official-3840x2400-5630.jpg",
+          "label": "Windows 11 dark mode blue stock official 3840x2400 5630",
+          "roles": [
+            "gallery",
+            "featured"
+          ]
+        }
+      ],
+      "content": {
+        "title": "welcome to testing ",
+        "paragraphs": [
+          "ttttttt"
+        ]
+      },
+      "similar": {
+        "pinned": [
+          "bristol-court",
+          "cedar-line-apartments",
+          "rosewood-house"
+        ]
+      },
+      "summary": "testtttt",
+      "bedrooms": 1,
+      "imageAlt": "",
+      "imageKey": "",
+      "location": "Meridian, Idaho",
+      "rentFrom": null,
+      "amenities": [
+        "Parking",
+        "Outdoor Space"
+      ],
+      "bathrooms": 2,
+      "deletedAt": "2026-10-07T10:31:16.102Z",
+      "publication": "published",
+      "availability": "Available Now"
+    },
+    {
+      "id": "local-barnstable-3-bedroom",
+      "area": 800,
+      "rent": 0,
+      "slug": "barnstable-3-bedroom",
+      "type": "House",
+      "title": "Barnstable ",
+      "images": [
+        {
+          "id": "img-2",
+          "alt": "",
+          "src": "https://ckfedtlwvbspubbauqvn.supabase.co/storage/v1/object/public/images/library/1791510467177-IMG_1145.jpeg",
+          "label": "IMG 1145",
+          "roles": [
+            "gallery"
+          ]
+        }
+      ],
+      "content": {
+        "paragraphs": [
+          "cozy"
+        ]
+      },
+      "similar": {
+        "excluded": [
+          "rosewood-house",
+          "warm-springs-townhomes",
+          "foothill-terrace",
+          "oakwood-apartments"
+        ]
+      },
+      "summary": "A Three- bedroom apartment on a quiet street,",
+      "bedrooms": 3,
+      "imageAlt": "",
+      "imageKey": "",
+      "location": "Hyannis ",
+      "rentFrom": null,
+      "amenities": [
+        "Parking",
+        "Outdoor Space",
+        "Dishwasher",
+        "No laundry on site"
+      ],
+      "bathrooms": 1,
+      "floorPlans": [
+        {
+          "id": "plan-1",
+          "label": "3 Bedroom",
+          "title": "",
+          "bedrooms": 3,
+          "rentFrom": null,
+          "bathrooms": 1,
+          "squareFeet": 800,
+          "description": "",
+          "availability": "contact"
+        },
+        {
+          "id": "plan-2",
+          "label": "2 bedroom basement",
+          "title": "",
+          "bedrooms": 2,
+          "rentFrom": null,
+          "bathrooms": 1,
+          "squareFeet": 700,
+          "description": "",
+          "availability": "contact"
+        }
+      ],
+      "publication": "draft",
+      "availability": "Available Soon"
+    }
+  ],
+  "applications": {
+    "version": 1,
+    "activeId": "app-1791513094079-10",
+    "applications": [
+      {
+        "id": "app-1791513094079-10",
+        "name": "Standard Rental Application",
+        "createdAt": "2026-10-09T02:31:34.079Z",
+        "deletedAt": null,
+        "questions": [
+          {
+            "id": "q-1791513094079-1",
+            "name": "fullName",
+            "type": "text",
+            "label": "Full Name",
+            "required": true,
+            "placeholder": "Your full name"
+          },
+          {
+            "id": "q-1791513094079-2",
+            "name": "email",
+            "type": "email",
+            "label": "Email Address",
+            "required": true,
+            "placeholder": "you@example.com"
+          },
+          {
+            "id": "q-1791513094079-3",
+            "name": "phone",
+            "type": "tel",
+            "label": "Phone Number",
+            "required": true,
+            "placeholder": "(208) 000-0000"
+          },
+          {
+            "id": "q-1791513094079-4",
+            "name": "property",
+            "type": "select",
+            "label": "Property of Interest",
+            "options": [
+              {
+                "label": "Oakwood Apartments",
+                "value": "oakwood-apartments"
+              },
+              {
+                "label": "Bristol Court",
+                "value": "bristol-court"
+              },
+              {
+                "label": "Warm Springs Townhomes",
+                "value": "warm-springs-townhomes"
+              },
+              {
+                "label": "Linden Studios",
+                "value": "linden-studios"
+              },
+              {
+                "label": "Maple Ridge",
+                "value": "maple-ridge"
+              },
+              {
+                "label": "Not sure yet",
+                "value": "undecided"
+              }
+            ],
+            "placeholder": "Select a property"
+          },
+          {
+            "id": "q-1791513094079-5",
+            "name": "homeType",
+            "type": "select",
+            "label": "Home Size",
+            "options": [
+              {
+                "label": "Studio",
+                "value": "studio"
+              },
+              {
+                "label": "1 Bedroom",
+                "value": "1-bedroom"
+              },
+              {
+                "label": "2 Bedroom",
+                "value": "2-bedroom"
+              },
+              {
+                "label": "3 Bedroom",
+                "value": "3-bedroom"
+              }
+            ],
+            "required": true,
+            "placeholder": "Select a size"
+          },
+          {
+            "id": "q-1791513094079-6",
+            "name": "moveInDate",
+            "type": "date",
+            "label": "Preferred Move-In Date"
+          },
+          {
+            "id": "q-1791513094079-7",
+            "name": "occupants",
+            "type": "text",
+            "label": "Number of Occupants",
+            "placeholder": "How many people will live in the home?"
+          },
+          {
+            "id": "q-1791513094079-8",
+            "name": "pets",
+            "type": "radio",
+            "label": "Do You Have Pets?",
+            "options": [
+              {
+                "label": "No pets",
+                "value": "none"
+              },
+              {
+                "label": "Yes, one",
+                "value": "one"
+              },
+              {
+                "label": "Yes, more than one",
+                "value": "several"
+              }
+            ]
+          },
+          {
+            "id": "q-1791513094079-9",
+            "name": "message",
+            "rows": 5,
+            "type": "textarea",
+            "label": "Anything Else We Should Know?",
+            "placeholder": "Tell us anything that would help us help you."
+          },
+          {
+            "id": "q-1791513584116-12",
+            "name": "employment-verification",
+            "type": "text",
+            "label": "Employment Verification",
+            "required": true
+          },
+          {
+            "id": "q-1791513642414-13",
+            "name": "do-you-agree-to-full-background-check",
+            "type": "select",
+            "label": "Do you Agree to full background check",
+            "options": [
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "Yes",
+                "value": "yes"
+              }
+            ],
+            "required": true
+          },
+          {
+            "id": "q-1791514288983-14",
+            "name": "social-security",
+            "type": "text",
+            "label": "Social Security",
+            "required": true
+          }
+        ],
+        "updatedAt": "2026-10-09T02:51:28.983Z"
+      }
+    ]
+  }
+}
