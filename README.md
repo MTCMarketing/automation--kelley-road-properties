@@ -29,7 +29,9 @@ submissions are not touched and are not readable with the key used here.
 ```
 somebody saves in the CMS
    │
-   ├─ a database trigger commits content.json into .github/content/
+   ├─ a database trigger calls sync.yml, which is the only thing here that
+   │  knows Supabase exists — it reads the CMS and writes content.json into
+   │  .github/content/
    │
    ├─ that push starts .github/workflows/content.yml
    │     (a path filter — a commit anywhere else does not start it at all)
@@ -52,8 +54,15 @@ engines.** Both are needed, and neither replaces the other.
 
 Settings → Secrets and variables → Actions.
 
-No variables are needed. This repository does not talk to the database —
-the database talks to it.
+**Variables** — read by `sync.yml`, which is the one workflow that talks to
+the database. Neither is secret; both already appear in the website's own
+page source.
+
+| name | value |
+|---|---|
+| `SUPABASE_URL` | `https://ckfedtlwvbspubbauqvn.supabase.co` |
+| `SUPABASE_PUBLISHABLE_KEY` | the `sb_publishable_…` key |
+| `SETTLE_SECONDS` | optional, defaults to `90` |
 
 **Secrets:**
 
@@ -66,8 +75,25 @@ secrets are not, and are not exposed to pull requests from forks.
 
 ## Triggering it
 
-Write `content.json` into `.github/content/`. That is the whole interface —
-the push does the rest. See that folder's README for the shape of the file.
+The database calls `sync.yml` with a `cms-changed` dispatch. That is the
+whole interface between Supabase and everything else:
+
+```sql
+select net.http_post(
+  url     := 'https://api.github.com/repos/MTCMarketing/automation--kelley-road-properties/dispatches',
+  headers := jsonb_build_object(
+    'Authorization', 'Bearer ' || current_setting('app.github_token'),
+    'Accept',        'application/vnd.github+json',
+    'User-Agent',    'kelley-road-cms',
+    'Content-Type',  'application/json'
+  ),
+  body    := jsonb_build_object('event_type', 'cms-changed')
+);
+```
+
+Writing `content.json` into `.github/content/` by hand works too, and skips
+the database entirely — useful for replaying a publish or testing the second
+half on its own.
 
 By hand: Actions → content → Run workflow, which republishes whatever is
 currently in the folder.

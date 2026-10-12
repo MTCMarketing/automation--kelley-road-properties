@@ -1,0 +1,72 @@
+# Reads the CMS and writes content.json into .github/content/.
+#
+# This is the adapter, and it is the ONLY thing in the chain that knows
+# Supabase exists. The database calls it; it writes a file; the push starts
+# content.yml, which forwards that file to the website.
+#
+# Replacing Supabase later is a change to this one workflow. Nothing
+# downstream — not content.yml, not the website, not the build — knows or
+# needs to.
+#
+# ── why this is separate from content.yml ────────────────────────────────
+# Because the file in .github/content/ is worth having as a record. It is
+# what was published, visible and diffable, and it can be edited by hand or
+# replayed without a database anywhere in the loop. Folding the fetch into
+# the publish would make the content a thing that passed through a runner and
+# vanished.
+
+name: sync
+
+on:
+  # What the database trigger calls.
+  repository_dispatch:
+    types: [cms-changed]
+
+  # And a button, for a manual re-read.
+  workflow_dispatch:
+
+# A newer change makes an in-flight read pointless: it is about to write
+# content that is already out of date. Editing a property through five wizard
+# steps is five calls and one write.
+concurrency:
+  group: sync
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Let the saves settle. A wizard step is a save, and reading after the
+      # last one is both cheaper and more correct than reading after each.
+      - name: Settle
+        if: github.event_name == 'repository_dispatch'
+        run: sleep ${{ vars.SETTLE_SECONDS || 90 }}
+
+      - name: Read the CMS
+        env:
+          SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ vars.SUPABASE_PUBLISHABLE_KEY }}
+        run: bash scripts/read-cms.sh
+
+      - name: Commit it, if it changed
+        run: |
+          if git diff --quiet -- .github/content/content.json; then
+            echo "The CMS has not changed since the last sync. Nothing written."
+            exit 0
+          fi
+
+          version=$(node -e 'console.log(JSON.parse(require("fs").readFileSync(".github/content/content.json","utf8")).version)')
+
+          git config user.name "Kelley Road automation"
+          git config user.email "automation@kelleyroadproperties.com"
+          git add .github/content/content.json
+          git commit -m "Content from the CMS, version ${version}"
+          git push
+
+          echo "Written. content.yml will take it from here."
