@@ -53,7 +53,15 @@ console.log(JSON.stringify(body));
 
 echo "Publishing ${count} properties (version ${version}) to ${TARGET_REPO}..."
 
-response=$(curl -fsS -X PUT "${auth[@]}" -d "$payload" "$API")
+# From a file, not from an argument. The body carries the whole catalogue
+# base64-encoded - tens of kilobytes - and passing that inline made curl exit
+# 43 rather than send it. A request body belongs on stdin regardless of size;
+# at this size it is not optional.
+printf '%s' "$payload" > payload.json
+
+response=$(curl -fsS -X PUT "${auth[@]}" --data-binary @payload.json "$API")
+
+rm -f payload.json
 
 printf '%s' "$response" | node -e '
 let b = "";
