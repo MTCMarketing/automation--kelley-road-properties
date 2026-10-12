@@ -11,9 +11,21 @@ set -euo pipefail
 
 FILE=".github/content/content.json"
 
-say() { echo "ok=false" >> "$GITHUB_OUTPUT"; echo "$1"; exit 1; }
+# Two different outcomes, and conflating them is how a pipeline ends up with
+# a wall of red that everybody learns to ignore:
+#
+#   nothing arrived   not an error. Editing this folder's README is a change
+#                     under the watched path, and there is simply nothing to
+#                     publish. Finishes green, having done nothing.
+#
+#   something arrived
+#   and it is broken  an error, loudly. The website rebuilds from whatever
+#                     lands in it, so a truncated write must stop here and be
+#                     seen, not be passed along quietly.
+nothing() { echo "ok=false" >> "$GITHUB_OUTPUT"; echo "$1"; exit 0; }
+broken()  { echo "ok=false" >> "$GITHUB_OUTPUT"; echo "$1"; exit 1; }
 
-[ -f "$FILE" ] || say "There is no $FILE. Nothing to publish."
+[ -f "$FILE" ] || nothing "No $FILE has arrived yet. Nothing to publish."
 
 # Valid JSON, with the shape the website expects, and not empty. Node rather
 # than jq: it is already on every runner and needs no install step.
@@ -64,6 +76,6 @@ console.log(`content.json looks sound: ${count} properties, version ${content.ve
 
 fs.appendFileSync(process.env.GITHUB_OUTPUT, `version=${content.version}\n`);
 fs.appendFileSync(process.env.GITHUB_OUTPUT, `count=${count}\n`);
-' || say "The content that arrived is not publishable. Nothing was sent to the website."
+' || broken "The content that arrived is not publishable. Nothing was sent to the website."
 
 echo "ok=true" >> "$GITHUB_OUTPUT"
