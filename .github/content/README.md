@@ -16,11 +16,16 @@ anywhere else in this repository does not start it at all.
 ```json
 {
   "version": "2026-10-12T00:45:43.610133+00:00",
-  "generatedAt": "2026-10-12T05:12:00.000Z",
   "properties": [ ... ],
   "applications": { ... }
 }
 ```
+
+**Do not stamp anything on this file that changes per write** — a "generated
+at" time, a run id, a nonce. The pipeline skips a rebuild when the version is
+unchanged, and a field that moves every time defeats that: every write
+becomes a five-minute build, which is the cost this whole arrangement exists
+to avoid.
 
 `version` is the database's own `updated_at`, not a counter. A counter would
 drift the first time a run failed halfway through; a timestamp the database

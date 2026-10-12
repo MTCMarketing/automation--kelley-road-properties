@@ -48,15 +48,28 @@ git clone --quiet --depth 1 --filter=blob:none --sparse \
 cd "$work"
 git sparse-checkout set --no-cone content.json
 
+# ── is there anything to publish? ─────────────────────────
+# A build costs about five minutes of a fixed monthly allowance, so identical
+# content must not spend one.
+#
+# Compared on `version` rather than by diffing the files. The version is the
+# database's own updated_at, so equal versions mean identical content by
+# definition - whereas a byte comparison is defeated by anything a writer
+# stamps on the file per run. It was: an earlier content.json carried a
+# generatedAt, which changed every time and made every trigger a build.
+incoming=$(node -e 'console.log(JSON.parse(require("fs").readFileSync(process.argv[1],"utf8")).version||"")' "$SOURCE")
+existing=$(node -e 'try{console.log(JSON.parse(require("fs").readFileSync("content.json","utf8")).version||"")}catch{console.log("")}')
+
+if [ -n "$existing" ] && [ "$incoming" = "$existing" ]; then
+  echo "The website already has version $existing. Nothing published, no build spent."
+  exit 0
+fi
+
 cp "$SOURCE" content.json
 git add content.json
 
-# ── is there anything to publish? ─────────────────────────
-# A build costs about five minutes of a fixed monthly allowance, so an
-# identical file must not spend one. The comparison lives here because git
-# has already done the diff.
 if git diff --cached --quiet; then
-  echo "The website already has this exact content. Nothing published, no build spent."
+  echo "The file is byte-identical to what the website has. Nothing published."
   exit 0
 fi
 
