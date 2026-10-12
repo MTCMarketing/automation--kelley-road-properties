@@ -7,14 +7,28 @@
 # unrelated commit to this repository.
 #
 # ── how content gets here ────────────────────────────────────────────────
-# The CMS writes it. A change in Supabase fires a database trigger, which
-# commits the file into .github/content/ using a token with write access to
-# this repository. That commit is a push, and this is what the push starts.
+# A change in the CMS fires a database trigger, which asks this repository to
+# run sync.yml. That reads the CMS, writes content.json here, and calls this
+# workflow. A person editing the file by hand instead takes the push trigger
+# above. Either way the file arrives and this publishes it.
 #
-# Which is the whole point of the arrangement: the database knows how to
-# write a file to a repository, and nothing more. It does not know the
-# website exists, what builds it, or where it is deployed. Replacing Supabase
-# later means teaching something else to write the same file.
+# Which is the whole point of the arrangement: the database says only that
+# something changed. It does not know the website exists, what builds it, or
+# where it is deployed. Replacing Supabase later is a change to sync.yml and
+# to nothing else.
+#
+# Why workflow_call as well as push:
+#
+# Because a push made by a workflow using the built-in token does NOT start
+# another workflow. GitHub blocks that deliberately, to stop a workflow that
+# commits from triggering itself forever. So sync.yml's commit lands in
+# .github/content/ and the push trigger above never sees it. Verified, not
+# assumed: commit a310a2b pushed cleanly and no run started.
+#
+# The path filter stays exactly as it is, because it is still what a human
+# edit uses. sync.yml calls this directly instead of relying on its push
+# being noticed. Only one of the two routes fires per change, so this
+# publishes once, not twice.
 
 name: content
 
@@ -22,6 +36,9 @@ on:
   push:
     paths:
       - ".github/content/**"
+
+  # How sync.yml hands over, for the reason in the preamble.
+  workflow_call:
 
   # A manual run, for republishing after a change to the pipeline itself.
   workflow_dispatch:

@@ -69,9 +69,11 @@ jobs:
         run: bash scripts/read-cms.sh
 
       - name: Commit it, if it changed
+        id: commit
         run: |
           if git diff --quiet -- .github/content/content.json; then
             echo "The CMS has not changed since the last sync. Nothing written."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
@@ -83,4 +85,23 @@ jobs:
           git commit -m "Content from the CMS, version ${version}"
           git push
 
-          echo "Written. content.yml will take it from here."
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "Written and committed. Publishing next."
+
+    outputs:
+      changed: ${{ steps.commit.outputs.changed }}
+
+  # Publishing is content.yml, called rather than left to be noticed.
+  #
+  # The commit above is made with the built-in token, and GitHub does not
+  # start workflows from those pushes - a deliberate guard against a workflow
+  # that commits triggering itself forever. So content.yml's push trigger
+  # never sees this file arrive and has to be called directly.
+  #
+  # Skipped entirely when nothing changed, so a trigger that turns out to be
+  # about nothing costs one short job instead of a five-minute build.
+  publish:
+    needs: sync
+    if: needs.sync.outputs.changed == 'true'
+    uses: ./.github/workflows/content.yml
+    secrets: inherit
