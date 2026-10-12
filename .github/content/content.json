@@ -1,6 +1,6 @@
 {
   "note": "Written from the CMS by automation--kelley-road-properties. Do not edit by hand.",
-  "version": "2026-10-12T06:47:29.860271+00:00",
+  "version": "2026-10-12T06:53:09.802557+00:00",
   "properties": [
     {
       "id": "kr-001",
@@ -302,7 +302,7 @@
       "rent": 0,
       "slug": "testing",
       "type": "Apartment",
-      "title": "testing",
+      "title": "testing (pipeline check)",
       "images": [
         {
           "id": "img-1789677228927-her-omg.jpg",
