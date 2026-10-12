@@ -1,0 +1,60 @@
+# Forwards content written into .github/content/ to the website.
+#
+# The trigger is the path filter below, and that distinction matters: the
+# workflow does not start at all unless something under .github/content/
+# changed. It is not a job that runs and then decides it had nothing to do —
+# that would still queue a runner and still show a run in the list, for every
+# unrelated commit to this repository.
+#
+# ── how content gets here ────────────────────────────────────────────────
+# The CMS writes it. A change in Supabase fires a database trigger, which
+# commits the file into .github/content/ using a token with write access to
+# this repository. That commit is a push, and this is what the push starts.
+#
+# Which is the whole point of the arrangement: the database knows how to
+# write a file to a repository, and nothing more. It does not know the
+# website exists, what builds it, or where it is deployed. Replacing Supabase
+# later means teaching something else to write the same file.
+
+name: content
+
+on:
+  push:
+    paths:
+      - ".github/content/**"
+
+  # A manual run, for republishing after a change to the pipeline itself.
+  workflow_dispatch:
+
+# A newer change makes an in-flight run obsolete, so it is cancelled rather
+# than left to publish content that is already stale. This is also the
+# debounce: editing a property through five wizard steps is five commits
+# here, and only the last survives to become a build.
+concurrency:
+  group: content
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out this repository
+        uses: actions/checkout@v4
+
+      - name: Check the content is there and is readable
+        id: check
+        run: bash scripts/check-content.sh
+
+      - name: Publish it to the website
+        if: steps.check.outputs.ok == 'true'
+        env:
+          # Write access to the website repository only. This repository is
+          # public; its secrets are not, and are not exposed to pull requests
+          # from forks.
+          GITHUB_TOKEN: ${{ secrets.AUTOMATION_CONTENT_JSON }}
+          TARGET_REPO: MTCMarketing/source--kelley-roads-property-management
+        run: bash scripts/publish-content.sh

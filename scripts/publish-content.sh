@@ -6,6 +6,9 @@
 # is private and several hundred megabytes, and this needs to write one file.
 # A clone would spend most of the run downloading things it will not read.
 #
+# The file published is the one the CMS wrote into .github/content/, passed
+# through unchanged. This step moves it; it does not interpret it.
+#
 # The commit message carries the deployment marker exactly once. It is matched
 # anywhere in the message, so it must not appear a second time, even in prose.
 
@@ -26,8 +29,8 @@ sha=$(curl -fsS "${auth[@]}" "$API" 2>/dev/null \
   | node -e 'let b="";process.stdin.on("data",c=>b+=c);process.stdin.on("end",()=>{try{console.log(JSON.parse(b).sha||"")}catch{console.log("")}})' \
   || echo "")
 
-version=$(node -e 'console.log(JSON.parse(require("fs").readFileSync("content.json","utf8")).version)')
-count=$(node -e 'const c=JSON.parse(require("fs").readFileSync("content.json","utf8"));console.log(c.properties?c.properties.length:0)')
+version=$(node -e 'console.log(JSON.parse(require("fs").readFileSync(".github/content/content.json","utf8")).version)')
+count=$(node -e 'const c=JSON.parse(require("fs").readFileSync(".github/content/content.json","utf8"));console.log(c.properties?c.properties.length:0)')
 
 message="Content updated from the CMS [deploy:live]
 
@@ -41,7 +44,7 @@ payload=$(node --input-type=module -e '
 import fs from "node:fs";
 const body = {
   message: process.argv[1],
-  content: fs.readFileSync("content.json").toString("base64"),
+  content: fs.readFileSync(".github/content/content.json").toString("base64"),
   committer: { name: "Kelley Road automation", email: "automation@kelleyroadproperties.com" },
 };
 if (process.argv[2]) body.sha = process.argv[2];

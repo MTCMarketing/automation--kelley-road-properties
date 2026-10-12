@@ -29,15 +29,20 @@ submissions are not touched and are not readable with the key used here.
 ```
 somebody saves in the CMS
    │
-   ├─ a database trigger calls this repository
+   ├─ a database trigger commits content.json into .github/content/
    │
-   ├─ this waits a couple of minutes, so five saves are one build
+   ├─ that push starts .github/workflows/content.yml
+   │     (a path filter — a commit anywhere else does not start it at all)
    │
-   ├─ reads the CMS, writes content.json, and compares it with the website's
-   │  copy — if nothing actually changed, it stops here
+   ├─ the file is checked: valid JSON, has a version, lists properties
    │
-   └─ commits content.json to the website, which publishes on push
+   └─ forwarded to the website, which publishes on push
 ```
+
+The database writes a file to a repository and knows nothing else. It has
+never heard of the website, what builds it, or where it is deployed.
+Replacing Supabase later means teaching something else to write the same
+file into the same folder.
 
 Meanwhile the website itself re-reads the CMS in the visitor's browser, so a
 change is visible within seconds. **That is for people; this is for search
@@ -47,13 +52,8 @@ engines.** Both are needed, and neither replaces the other.
 
 Settings → Secrets and variables → Actions.
 
-**Variables** (not secret — these already appear in the website's page source):
-
-| name | value |
-|---|---|
-| `SUPABASE_URL` | `https://ckfedtlwvbspubbauqvn.supabase.co` |
-| `SUPABASE_PUBLISHABLE_KEY` | the `sb_publishable_…` key |
-| `DEBOUNCE_SECONDS` | optional, defaults to `120` |
+No variables are needed. This repository does not talk to the database —
+the database talks to it.
 
 **Secrets:**
 
@@ -66,34 +66,32 @@ secrets are not, and are not exposed to pull requests from forks.
 
 ## Triggering it
 
-From the database, on change:
+Write `content.json` into `.github/content/`. That is the whole interface —
+the push does the rest. See that folder's README for the shape of the file.
 
-```sql
-select net.http_post(
-  url     := 'https://api.github.com/repos/MTCMarketing/automation--kelley-road-properties/dispatches',
-  headers := jsonb_build_object(
-    'Authorization', 'Bearer ' || current_setting('app.automation_token'),
-    'Accept',        'application/vnd.github+json',
-    'User-Agent',    'kelley-road-cms'
-  ),
-  body    := jsonb_build_object('event_type', 'content-changed')
-);
-```
+By hand: Actions → content → Run workflow, which republishes whatever is
+currently in the folder.
 
-Or by hand: Actions → process → Run workflow. Use **force** to republish
-content that has not changed, which is occasionally what you want after
-changing something about the build itself.
+**Repeated saves do not mean repeated builds.** Each new commit cancels an
+in-flight run, so editing a property through five wizard steps publishes
+once, with the last version, rather than five times.
 
 ## When it goes wrong
 
-**It published nothing.** Expected when the CMS has not changed since the
-last build — the log says so. Use *Run workflow* with **force** to override.
+**Nothing ran.** The workflow only starts when something under
+`.github/content/` changes. A commit elsewhere in this repository will not
+start it, by design.
+
+**It refused to publish.** The file that arrived was empty, was not valid
+JSON, had no version, or listed no properties at all. The log says which.
+Refusing is deliberate: the website rebuilds from whatever lands in it, and a
+truncated write would otherwise take the listings off a live site.
 
 **It published but the site did not rebuild.** The website publishes on a
 marker in the commit message, matched anywhere in the message. If that marker
 appears twice the deploy is refused, so it must never be written in prose —
 this is the single most common way to break the chain.
 
-**It could not read the CMS.** Check `SUPABASE_URL` and the publishable key.
-The script fails rather than writing an empty `content.json`: publishing a
-site with no properties would be worse than publishing nothing.
+**The website has old content.** Check that the database trigger is actually
+committing — if nothing has arrived in `.github/content/` there is nothing to
+forward, and the problem is upstream of this repository.
