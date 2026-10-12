@@ -62,6 +62,36 @@ Meanwhile the website itself re-reads the CMS in the visitor's browser, so a
 change is visible within seconds. **That is for people; this is for search
 engines.** Both are needed, and neither replaces the other.
 
+## How long it takes
+
+Measured, end to end, on the live site:
+
+| step | time |
+|---|---|
+| the settle, waiting for a burst of saves to finish | 90s |
+| reading the CMS and committing content.json | ~15s |
+| validating and publishing to the website | ~25s |
+| the website's own build and deploy | 2.5-5 min |
+| **a crawler can read the change** | **~5-7 min** |
+
+Then one more thing, which is easy to mistake for a broken pipeline:
+
+**Cloudflare caches the HTML for ten minutes** (`Cache-Control: max-age=600`).
+So after the deploy finishes, an edge that already has the old page keeps
+serving it until that expires. During testing the deploy completed at
+07:05:54 and a plain request still returned the previous title; the same URL
+with a cache-buster returned the new one immediately.
+
+If a change looks like it has not arrived, check the published file first -
+`.github/content/content.json` in this repository - and add a query string
+to the page before concluding anything. Purging the Cloudflare cache at the
+end of the deploy would remove this delay; nothing here does that yet.
+
+None of this affects what a **visitor** sees. The site re-reads the CMS in
+the browser, which does not go through the page cache, so a person watching
+the page sees a change within seconds. The minutes above are what a search
+engine waits for.
+
 ## Configure
 
 Settings → Secrets and variables → Actions.
