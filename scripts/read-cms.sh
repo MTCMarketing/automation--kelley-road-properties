@@ -13,8 +13,8 @@
 
 set -euo pipefail
 
-: "${SUPABASE_URL:?SUPABASE_URL is not set — add it under Settings, Variables}"
-: "${SUPABASE_KEY:?SUPABASE_PUBLISHABLE_KEY is not set — add it under Settings, Variables}"
+: "${SUPABASE_URL:?SUPABASE_URL is empty. The workflow passes a default, so an empty value here means someone set the SUPABASE_URL variable to nothing.}"
+: "${SUPABASE_KEY:?SUPABASE_KEY is empty. The workflow passes a default, so an empty value here means someone set the SUPABASE_PUBLISHABLE_KEY variable to nothing.}"
 
 REST="${SUPABASE_URL}/rest/v1/cms_documents"
 

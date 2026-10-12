@@ -48,10 +48,24 @@ jobs:
         if: github.event_name == 'repository_dispatch'
         run: sleep ${{ vars.SETTLE_SECONDS || 90 }}
 
+      # The defaults are committed on purpose, and these two values are not
+      # secrets. The key is Supabase's PUBLISHABLE key: it is designed to sit
+      # in a browser, it is already served inside the website's own JavaScript,
+      # and row-level security decides what it may read. Proof rather than
+      # assertion: the leads table holds real submissions and this key reads
+      # back an empty list from it. It can see the property catalogue, which
+      # is the public website, and nothing personal.
+      #
+      # They are defaults rather than hardcoded so a different database can be
+      # pointed at by setting the variables, with no edit to this file. The
+      # first run of this workflow failed for exactly the opposite reason:
+      # required variables that nobody had set, and a pipeline that could not
+      # work until they were. A pipeline that needs a setup step somebody
+      # forgot is a pipeline that is off.
       - name: Read the CMS
         env:
-          SUPABASE_URL: ${{ vars.SUPABASE_URL }}
-          SUPABASE_KEY: ${{ vars.SUPABASE_PUBLISHABLE_KEY }}
+          SUPABASE_URL: ${{ vars.SUPABASE_URL || 'https://ckfedtlwvbspubbauqvn.supabase.co' }}
+          SUPABASE_KEY: ${{ vars.SUPABASE_PUBLISHABLE_KEY || 'sb_publishable_2Lh8X-fWvlJQFvpYSLB6Nw_1jKf3DSt' }}
         run: bash scripts/read-cms.sh
 
       - name: Commit it, if it changed
