@@ -1,6 +1,6 @@
 {
   "note": "Written from the CMS by automation--kelley-road-properties. Do not edit by hand.",
-  "version": "2026-10-20T13:08:10.806698+00:00",
+  "version": "2026-10-20T13:18:42.176232+00:00",
   "properties": [
     {
       "id": "kr-001",
@@ -318,9 +318,7 @@
       ],
       "content": {
         "title": " ",
-        "paragraphs": [
-          "test"
-        ]
+        "paragraphs": []
       },
       "similar": {
         "pinned": [
@@ -329,7 +327,7 @@
           "oakwood-apartments"
         ]
       },
-      "summary": "quite, clean, gated property with lovey of the town.   ",
+      "summary": "quite, clean, gated property with lovely of the town.   ",
       "bedrooms": 1,
       "imageAlt": "",
       "imageKey": "",
@@ -338,7 +336,11 @@
       "amenities": [
         "Parking",
         "Dishwasher",
-        "Fitness Center"
+        "Fitness Center",
+        "Air Conditioning",
+        "In-Unit Laundry",
+        "Outdoor Space",
+        "Rooftop Terrace"
       ],
       "bathrooms": 1,
       "deletedAt": null,
