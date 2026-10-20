@@ -1,6 +1,6 @@
 {
   "note": "Written from the CMS by automation--kelley-road-properties. Do not edit by hand.",
-  "version": "2026-10-12T07:01:25.660732+00:00",
+  "version": "2026-10-20T13:08:10.806698+00:00",
   "properties": [
     {
       "id": "kr-001",
@@ -298,17 +298,17 @@
     },
     {
       "id": "local-testing",
-      "area": 1900,
+      "area": 800,
       "rent": 0,
       "slug": "testing",
       "type": "Apartment",
-      "title": "testing",
+      "title": "Meridian street",
       "images": [
         {
           "id": "img-1789677228927-her-omg.jpg",
           "alt": "",
           "src": "https://ckfedtlwvbspubbauqvn.supabase.co/storage/v1/object/public/images/library/1789677228927-her-omg.jpg",
-          "label": "testing",
+          "label": "",
           "roles": [
             "gallery",
             "featured"
@@ -317,7 +317,7 @@
         }
       ],
       "content": {
-        "title": "welcome to testing ",
+        "title": " ",
         "paragraphs": [
           "test"
         ]
@@ -329,7 +329,7 @@
           "oakwood-apartments"
         ]
       },
-      "summary": "testign the text for poreprty ",
+      "summary": "quite, clean, gated property with lovey of the town.   ",
       "bedrooms": 1,
       "imageAlt": "",
       "imageKey": "",
