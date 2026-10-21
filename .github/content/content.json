@@ -1,6 +1,6 @@
 {
   "note": "Written from the CMS by automation--kelley-road-properties. Do not edit by hand.",
-  "version": "2026-10-21T13:40:12.661004+00:00",
+  "version": "2026-10-21T13:47:51.239965+00:00",
   "properties": [
     {
       "id": "kr-001",
@@ -636,9 +636,16 @@
             "type": "text",
             "label": "Social Security",
             "required": true
+          },
+          {
+            "id": "q-1792590469962-1",
+            "name": "rental-history",
+            "type": "number",
+            "label": "Rental History",
+            "required": false
           }
         ],
-        "updatedAt": "2026-10-09T02:51:28.983Z"
+        "updatedAt": "2026-10-21T13:47:49.962Z"
       }
     ]
   }
