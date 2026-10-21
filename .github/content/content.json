@@ -1,6 +1,6 @@
 {
   "note": "Written from the CMS by automation--kelley-road-properties. Do not edit by hand.",
-  "version": "2026-10-21T13:15:47.565485+00:00",
+  "version": "2026-10-21T13:17:53.631635+00:00",
   "properties": [
     {
       "id": "kr-001",
@@ -83,17 +83,17 @@
     {
       "id": "kr-004",
       "area": 540,
-      "rent": 995,
+      "rent": 1150,
       "slug": "linden-studios",
       "type": "Studio",
-      "title": "Linden Studios",
+      "title": "Studio ",
       "summary": "A well-proportioned studio that makes the most of its space, suited to a single resident or a couple.",
       "bedrooms": 0,
       "imageAlt": "A compact white studio with a solid-wood bed frame and crisp white bedding, two black wire cage pendants hanging either side and a pair of framed prints centred above the headboard.",
       "imageKey": "prop-4",
       "listedOn": "2026-08-19",
       "location": "Somerville, Massachusetts",
-      "rentFrom": 995,
+      "rentFrom": 1150,
       "amenities": [
         "Air Conditioning",
         "Elevator"
