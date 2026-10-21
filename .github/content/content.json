@@ -1,6 +1,6 @@
 {
   "note": "Written from the CMS by automation--kelley-road-properties. Do not edit by hand.",
-  "version": "2026-10-20T13:18:42.176232+00:00",
+  "version": "2026-10-21T11:46:04.1646+00:00",
   "properties": [
     {
       "id": "kr-001",
@@ -8,7 +8,7 @@
       "rent": 2400,
       "slug": "oakwood-apartments",
       "type": "Apartment",
-      "title": "Turtleback Apartments",
+      "title": "Turtle win Apartments",
       "summary": "A two-bedroom apartment in a well-kept building, close to everyday amenities and managed by a team you can reach.",
       "bedrooms": 2,
       "featured": true,
@@ -106,7 +106,7 @@
       "rent": 0,
       "slug": "maple-ridge",
       "type": "Apartment",
-      "title": "Maple Ridge",
+      "title": "Ridgeline Homes",
       "summary": "A two-bedroom, two-bathroom home in a landscaped community with shared outdoor space.",
       "bedrooms": 2,
       "imageAlt": "A long three-storey apartment community in white board-and-batten siding with stacked stone bases, black balcony railings and gabled porches, running down a landscaped street of clipped shrubs and lamp posts.",
