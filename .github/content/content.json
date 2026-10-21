@@ -1,6 +1,6 @@
 {
   "note": "Written from the CMS by automation--kelley-road-properties. Do not edit by hand.",
-  "version": "2026-10-21T12:45:57.908919+00:00",
+  "version": "2026-10-21T12:48:00.056264+00:00",
   "properties": [
     {
       "id": "kr-001",
@@ -275,7 +275,7 @@
     {
       "id": "kr-012",
       "area": 1290,
-      "rent": 1785,
+      "rent": 0,
       "slug": "summit-court",
       "type": "Townhome",
       "title": "Summit Court",
@@ -285,7 +285,7 @@
       "imageKey": "prop-12",
       "listedOn": "2026-08-22",
       "location": "Waltham, Massachusetts",
-      "rentFrom": 1785,
+      "rentFrom": null,
       "amenities": [
         "Parking",
         "In-Unit Laundry",
@@ -294,8 +294,8 @@
         "Outdoor Space"
       ],
       "bathrooms": 2,
-      "photoCount": 19,
-      "availability": "Available Soon"
+      "publication": "published",
+      "availability": "Contact for Availability"
     },
     {
       "id": "local-testing",
