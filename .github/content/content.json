@@ -1,14 +1,14 @@
 {
   "note": "Written from the CMS by automation--kelley-road-properties. Do not edit by hand.",
-  "version": "2026-10-21T12:53:44.737263+00:00",
+  "version": "2026-10-21T13:15:47.565485+00:00",
   "properties": [
     {
       "id": "kr-001",
       "area": 1050,
-      "rent": 2400,
+      "rent": 2600,
       "slug": "oakwood-apartments",
       "type": "Apartment",
-      "title": "Turtle win Apartments",
+      "title": "2 Bedroom Apartments",
       "summary": "A two-bedroom apartment in a well-kept building, close to everyday amenities and managed by a team you can reach.",
       "bedrooms": 2,
       "featured": true,
@@ -16,7 +16,7 @@
       "imageKey": "prop-1",
       "listedOn": "2026-08-12",
       "location": "Worcester, Massachusetts",
-      "rentFrom": 2400,
+      "rentFrom": 2600,
       "amenities": [
         "Parking",
         "In-Unit Laundry",
