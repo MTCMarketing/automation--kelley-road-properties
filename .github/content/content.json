@@ -1,6 +1,6 @@
 {
   "note": "Written from the CMS by automation--kelley-road-properties. Do not edit by hand.",
-  "version": "2026-10-21T13:23:30.815264+00:00",
+  "version": "2026-10-21T13:37:07.558666+00:00",
   "properties": [
     {
       "id": "kr-001",
@@ -154,10 +154,10 @@
     {
       "id": "kr-007",
       "area": 1620,
-      "rent": 2250,
+      "rent": 3650,
       "slug": "foothill-terrace",
       "type": "Townhome",
-      "title": "Foothill Terrace",
+      "title": "Three Bedroom ",
       "summary": "A three-bedroom townhome with a private garage and a garden, on the edge of open country.",
       "bedrooms": 3,
       "featured": true,
@@ -165,7 +165,7 @@
       "imageKey": "prop-7",
       "listedOn": "2026-08-31",
       "location": "Newton, Massachusetts",
-      "rentFrom": 2250,
+      "rentFrom": 3650,
       "amenities": [
         "Parking",
         "In-Unit Laundry",
@@ -175,7 +175,7 @@
         "Dishwasher"
       ],
       "bathrooms": 2,
-      "photoCount": 20,
+      "publication": "published",
       "availability": "Available Soon"
     },
     {
@@ -184,7 +184,7 @@
       "rent": 0,
       "slug": "willow-bend",
       "type": "Apartment",
-      "title": "Willow Bend",
+      "title": "Two Bedroom",
       "summary": "A two-bedroom apartment with a second bathroom and a shared residents gym, suited to sharers or a small family.",
       "bedrooms": 2,
       "imageAlt": "A bright open-plan living and dining room with a beige corner sofa, a white media console with a flat-screen television, pale stone tile floor, a wood dining table and floor-to-ceiling glass doors onto a decked patio.",
@@ -197,6 +197,8 @@
         "In-Unit Laundry",
         "Air Conditioning",
         "Fitness Center",
+        "Dishwasher",
+        "Outdoor Space",
         "Elevator"
       ],
       "bathrooms": 2,
@@ -231,7 +233,7 @@
       "rent": 0,
       "slug": "rosewood-house",
       "type": "House",
-      "title": "Rosewood House",
+      "title": "Three Bedroom",
       "summary": "A detached three-bedroom house with a driveway and an enclosed rear garden, on a residential street.",
       "bedrooms": 3,
       "imageAlt": "The covered front porch of a single-storey house with cream board-and-batten siding, white tapered columns on stone pedestals, a stone porch base and steps, a bank of white-mullioned windows, two dark wicker chairs and a mown lawn.",
@@ -257,7 +259,7 @@
       "rent": 1325,
       "slug": "larkspur-commons",
       "type": "Apartment",
-      "title": "Larkspur Commons",
+      "title": "Two Bedroom",
       "summary": "A two-bedroom apartment with shared grounds and allocated parking, at the lower end of the range.",
       "bedrooms": 2,
       "imageAlt": "A covered apartment balcony with a white painted railing holding planter boxes of flowers, a slatted timber deck, a small bistro table and two chairs, and a facing row of brick buildings with white balconies across a green courtyard.",
@@ -280,7 +282,7 @@
       "rent": 0,
       "slug": "summit-court",
       "type": "Townhome",
-      "title": "Summit Court",
+      "title": "Two bedroom",
       "summary": "A two-bedroom townhome over two floors, with parking to the front and a small terrace behind.",
       "bedrooms": 2,
       "imageAlt": "A row of attached red-brick townhouses with white porch railings and columns, gabled dormers and bay windows, fronted by a mown lawn, low shrubs, young street trees and a black lamp post.",
@@ -305,7 +307,7 @@
       "rent": 0,
       "slug": "testing",
       "type": "Apartment",
-      "title": "Meridian street",
+      "title": "One Bedroom",
       "images": [
         {
           "id": "img-1789677228927-her-omg.jpg",
