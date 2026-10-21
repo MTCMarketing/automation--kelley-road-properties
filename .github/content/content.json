@@ -1,6 +1,6 @@
 {
   "note": "Written from the CMS by automation--kelley-road-properties. Do not edit by hand.",
-  "version": "2026-10-21T13:17:53.631635+00:00",
+  "version": "2026-10-21T13:23:30.815264+00:00",
   "properties": [
     {
       "id": "kr-001",
@@ -8,7 +8,7 @@
       "rent": 2600,
       "slug": "oakwood-apartments",
       "type": "Apartment",
-      "title": "2 Bedroom Apartments",
+      "title": "Two Bedroom Apartments",
       "summary": "A two-bedroom apartment in a well-kept building, close to everyday amenities and managed by a team you can reach.",
       "bedrooms": 2,
       "featured": true,
@@ -35,7 +35,7 @@
       "rent": 3750,
       "slug": "bristol-court",
       "type": "Apartment",
-      "title": "3 Bedroom Apartment ",
+      "title": "Three Bedroom Apartment ",
       "summary": "A bright one-bedroom home with generous windows and a straightforward, comfortable layout.",
       "bedrooms": 3,
       "imageAlt": "A sunlit apartment living room with a low cream sectional sofa, dark charcoal cushions, a round glass-topped coffee table holding pillar candles on a brass tray, and tall black-framed windows onto a leafy street.",
@@ -108,7 +108,7 @@
       "rent": 0,
       "slug": "maple-ridge",
       "type": "Apartment",
-      "title": "Ridgeline Homes",
+      "title": "Two Bedroom Apartment",
       "summary": "A two-bedroom, two-bathroom home in a landscaped community with shared outdoor space.",
       "bedrooms": 2,
       "imageAlt": "A long three-storey apartment community in white board-and-batten siding with stacked stone bases, black balcony railings and gabled porches, running down a landscaped street of clipped shrubs and lamp posts.",
@@ -133,7 +133,7 @@
       "rent": 0,
       "slug": "cedar-line-apartments",
       "type": "Apartment",
-      "title": "Cedar Line Apartments",
+      "title": "One Bedroom Apartment",
       "summary": "A one-bedroom apartment on a quiet street, within easy reach of the shops and services of the neighbourhood.",
       "bedrooms": 1,
       "imageAlt": "A cream and white multi-storey apartment building photographed from below, showing five levels of balconies with clear glass railings and white piers between them against a blue sky.",
@@ -145,7 +145,7 @@
         "Parking",
         "Air Conditioning",
         "Dishwasher",
-        "Elevator"
+        "In-Unit Laundry"
       ],
       "bathrooms": 1,
       "publication": "published",
