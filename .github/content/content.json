@@ -1,6 +1,6 @@
 {
   "note": "Written from the CMS by automation--kelley-road-properties. Do not edit by hand.",
-  "version": "2026-10-21T13:47:51.239965+00:00",
+  "version": "2026-10-21T13:51:15.855313+00:00",
   "properties": [
     {
       "id": "kr-001",
@@ -643,9 +643,16 @@
             "type": "number",
             "label": "Rental History",
             "required": false
+          },
+          {
+            "id": "q-1792590675524-2",
+            "name": "landlord-refernces",
+            "type": "text",
+            "label": "Landlord Refernces",
+            "required": false
           }
         ],
-        "updatedAt": "2026-10-21T13:47:49.962Z"
+        "updatedAt": "2026-10-21T13:51:15.524Z"
       }
     ]
   }
