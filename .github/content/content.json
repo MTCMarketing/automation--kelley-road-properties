@@ -1,6 +1,6 @@
 {
   "note": "Written from the CMS by automation--kelley-road-properties. Do not edit by hand.",
-  "version": "2026-10-21T11:46:04.1646+00:00",
+  "version": "2026-10-21T11:52:17.39614+00:00",
   "properties": [
     {
       "id": "kr-001",
@@ -58,7 +58,7 @@
       "rent": 1995,
       "slug": "warm-springs-townhomes",
       "type": "Townhome",
-      "title": "Turtleback Homes",
+      "title": "Town Cove Homes",
       "summary": "A three-bedroom townhome with private parking and room for a growing household, on an established residential street.",
       "bedrooms": 3,
       "featured": true,
