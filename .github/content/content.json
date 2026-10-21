@@ -1,6 +1,6 @@
 {
   "note": "Written from the CMS by automation--kelley-road-properties. Do not edit by hand.",
-  "version": "2026-10-21T12:48:00.056264+00:00",
+  "version": "2026-10-21T12:53:44.737263+00:00",
   "properties": [
     {
       "id": "kr-001",
@@ -32,25 +32,27 @@
     {
       "id": "kr-002",
       "area": 720,
-      "rent": 1195,
+      "rent": 3750,
       "slug": "bristol-court",
       "type": "Apartment",
-      "title": "Beth Court",
+      "title": "3 Bedroom Apartment ",
       "summary": "A bright one-bedroom home with generous windows and a straightforward, comfortable layout.",
-      "bedrooms": 1,
+      "bedrooms": 3,
       "imageAlt": "A sunlit apartment living room with a low cream sectional sofa, dark charcoal cushions, a round glass-topped coffee table holding pillar candles on a brass tray, and tall black-framed windows onto a leafy street.",
       "imageKey": "prop-2",
       "listedOn": "2026-08-26",
-      "location": "Cambridge, Massachusetts",
-      "rentFrom": 1195,
+      "location": "Barnstable, Massachusetts",
+      "rentFrom": 3750,
       "amenities": [
         "Parking",
         "Air Conditioning",
-        "Dishwasher"
+        "Dishwasher",
+        "In-Unit Laundry",
+        "Outdoor Space"
       ],
       "bathrooms": 1,
-      "publication": "draft",
-      "availability": "Unavailable"
+      "publication": "published",
+      "availability": "Available Soon"
     },
     {
       "id": "kr-003",
