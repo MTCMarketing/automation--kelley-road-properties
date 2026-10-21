@@ -1,6 +1,6 @@
 {
   "note": "Written from the CMS by automation--kelley-road-properties. Do not edit by hand.",
-  "version": "2026-10-21T11:52:17.39614+00:00",
+  "version": "2026-10-21T12:01:45.296848+00:00",
   "properties": [
     {
       "id": "kr-001",
@@ -226,7 +226,7 @@
     {
       "id": "kr-010",
       "area": 1740,
-      "rent": 2150,
+      "rent": 0,
       "slug": "rosewood-house",
       "type": "House",
       "title": "Rosewood House",
@@ -236,17 +236,18 @@
       "imageKey": "prop-10",
       "listedOn": "2026-07-22",
       "location": "Plymouth, Massachusetts",
-      "rentFrom": 2150,
+      "rentFrom": null,
       "amenities": [
         "Parking",
         "In-Unit Laundry",
         "Pet Friendly",
         "Outdoor Space",
-        "Dishwasher"
+        "Dishwasher",
+        "Air Conditioning"
       ],
       "bathrooms": 2,
-      "photoCount": 17,
-      "availability": "Contact for Availability"
+      "publication": "published",
+      "availability": "Unavailable"
     },
     {
       "id": "kr-011",
