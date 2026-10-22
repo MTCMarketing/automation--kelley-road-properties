@@ -60,8 +60,21 @@ git sparse-checkout set --no-cone content.json
 incoming=$(node -e 'console.log(JSON.parse(require("fs").readFileSync(process.argv[1],"utf8")).version||"")' "$SOURCE")
 existing=$(node -e 'try{console.log(JSON.parse(require("fs").readFileSync("content.json","utf8")).version||"")}catch{console.log("")}')
 
-if [ -n "$existing" ] && [ "$incoming" = "$existing" ]; then
-  echo "The website already has version $existing. Nothing published, no build spent."
+# Strictly newer, not merely different. Equal means the website already
+# has this content. OLDER means something is trying to publish a stale
+# read over a fresher one, and shipping it would roll the live site
+# backwards - the site silently losing the last edit is far worse than
+# a publish that declines to run.
+#
+# This matters more now that sync.yml publishes on every run rather than
+# only when it stored something itself. That change is what heals content
+# stranded by a cancelled run; this is what keeps it safe.
+if [ -n "$existing" ] && ! node -e 'process.exit(process.argv[1] > process.argv[2] ? 0 : 1)' "$incoming" "$existing"; then
+  if [ "$incoming" = "$existing" ]; then
+    echo "The website already has version $existing. Nothing published, no build spent."
+  else
+    echo "Refusing to publish $incoming over the newer $existing already on the website."
+  fi
   exit 0
 fi
 

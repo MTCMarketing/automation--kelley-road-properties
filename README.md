@@ -160,6 +160,19 @@ warned about in the Postgres log and deliberately does **not** fail the
 save, because refusing somebody's edit over a broken deploy hook has its
 priorities backwards.
 
+**A sync failed with `! [rejected] main -> main`.** It no longer can:
+the step retries. This happened four times on 21 October and is worth
+understanding, because the runs were doing the right thing. The CMS fires
+one trigger per save, so editing a property through several steps starts
+several runs. Two that overlap both check out the repository, both
+generate a file, and the second one to finish finds the branch has moved
+under it. Git refused, correctly, and the job went red over a situation
+that needed one more attempt.
+
+It now fetches, catches up and tries again, up to three times, and only
+stores content whose version is newer than what is already there - so two
+runs racing cannot leave the older read on top.
+
 **`content.yml` did not run after a hand edit.** It only starts when
 something under `.github/content/` changes. A commit elsewhere in this
 repository will not start it, by design.

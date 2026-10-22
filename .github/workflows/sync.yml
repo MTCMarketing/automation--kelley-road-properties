@@ -68,28 +68,64 @@ jobs:
           SUPABASE_KEY: ${{ vars.SUPABASE_PUBLISHABLE_KEY || 'sb_publishable_2Lh8X-fWvlJQFvpYSLB6Nw_1jKf3DSt' }}
         run: bash scripts/read-cms.sh
 
-      - name: Commit it, if it changed
-        id: commit
+      - name: Store it, retrying if another sync got there first
         run: |
-          if git diff --quiet -- .github/content/content.json; then
-            echo "The CMS has not changed since the last sync. Nothing written."
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          version=$(node -e 'console.log(JSON.parse(require("fs").readFileSync(".github/content/content.json","utf8")).version)')
-
           git config user.name "Kelley Road automation"
           git config user.email "automation@kelleyroadproperties.com"
-          git add .github/content/content.json
-          git commit -m "Content from the CMS, version ${version}"
-          git push
 
-          echo "changed=true" >> "$GITHUB_OUTPUT"
-          echo "Written and committed. Publishing next."
+          # Keep our copy somewhere git will not touch, because recovering
+          # from a lost race means resetting the working tree.
+          mine="$RUNNER_TEMP/content.json"
+          cp .github/content/content.json "$mine"
 
-    outputs:
-      changed: ${{ steps.commit.outputs.changed }}
+          version() {
+            node -e 'try{process.stdout.write(String(JSON.parse(require("fs").readFileSync(process.argv[1],"utf8")).version||""))}catch{process.stdout.write("")}' "$1"
+          }
+
+          ours=$(version "$mine")
+
+          # What is COMMITTED, not what is in the working tree - the working
+          # tree already holds the file this run just generated, so reading it
+          # here would compare our version against itself, conclude it was
+          # already stored, and quietly never commit anything.
+          stored() {
+            if git show HEAD:.github/content/content.json > "$RUNNER_TEMP/stored.json" 2>/dev/null; then
+              version "$RUNNER_TEMP/stored.json"
+            fi
+          }
+
+          for attempt in 1 2 3; do
+            theirs=$(stored)
+
+            # Newest wins, and the version is the database's own updated_at,
+            # so "newest" is a fact rather than a guess. Equal means another
+            # run stored this exact content already.
+            if [ -n "$theirs" ] && ! node -e 'process.exit(process.argv[1] > process.argv[2] ? 0 : 1)' "$ours" "$theirs"; then
+              echo "Version $theirs is already stored, which is not older than ours. Nothing written."
+              exit 0
+            fi
+
+            cp "$mine" .github/content/content.json
+            git add -- .github/content/content.json
+            git commit -q -m "Content from the CMS, version ${ours}"
+
+            if git push -q origin HEAD:main 2>/dev/null; then
+              echo "Stored version ${ours}."
+              exit 0
+            fi
+
+            # Another sync pushed between our checkout and our push. Not an
+            # error: the CMS fires one trigger per save, so a burst of saves
+            # is a burst of runs, and two of them overlapping is ordinary.
+            # Four runs failed this way on 21 October, each one reporting a
+            # red cross for a situation that only needed a second attempt.
+            echo "Another sync pushed first; catching up and retrying (attempt ${attempt})."
+            git fetch -q origin main
+            git reset -q --hard origin/main
+          done
+
+          echo "Could not store the content after three attempts." >&2
+          exit 1
 
   # Publishing is content.yml, called rather than left to be noticed.
   #
@@ -98,10 +134,17 @@ jobs:
   # that commits triggering itself forever. So content.yml's push trigger
   # never sees this file arrive and has to be called directly.
   #
-  # Skipped entirely when nothing changed, so a trigger that turns out to be
-  # about nothing costs one short job instead of a five-minute build.
+  # This runs whether or not THIS run was the one that stored the content,
+  # and that is deliberate. It used to be skipped unless this run committed,
+  # which left a hole: a run can push the file and then be cancelled by a
+  # newer one before it publishes, and every later run would see the file
+  # already stored, skip, and leave that content sitting in this repository
+  # having never reached the website. Publishing unconditionally closes it -
+  # whichever run gets there carries whatever is current.
+  #
+  # It is cheap to run for nothing: it compares versions with the website
+  # first and stops before spending a build when they match.
   publish:
     needs: sync
-    if: needs.sync.outputs.changed == 'true'
     uses: ./.github/workflows/content.yml
     secrets: inherit
