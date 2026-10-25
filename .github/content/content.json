@@ -1,6 +1,6 @@
 {
   "note": "Written from the CMS by automation--kelley-road-properties. Do not edit by hand.",
-  "version": "2026-10-22T03:43:17.308565+00:00",
+  "version": "2026-10-25T22:58:19.791415+00:00",
   "properties": [
     {
       "id": "kr-001",
@@ -208,23 +208,27 @@
     {
       "id": "kr-009",
       "area": 505,
-      "rent": 965,
+      "rent": 0,
       "slug": "vista-park-studios",
       "type": "Studio",
-      "title": "Vista Park Studios",
+      "title": "1 Bedroom studio ",
       "summary": "A compact studio close to the park, with a separate bathroom and a kitchen along one wall.",
       "bedrooms": 0,
       "imageAlt": "A sunlit studio apartment with a taupe modular sofa beside floor-to-ceiling windows, a white brick column with a slim counter shelf and cage pendant lights, and a bed with a sheepskin throw in the sleeping area beyond.",
       "imageKey": "prop-9",
       "listedOn": "2026-09-01",
       "location": "Salem, Massachusetts",
-      "rentFrom": 965,
+      "rentFrom": null,
       "amenities": [
         "Air Conditioning",
-        "Elevator"
+        "Elevator",
+        "Parking",
+        "Outdoor Space",
+        "In-Unit Laundry",
+        "Dishwasher"
       ],
       "bathrooms": 1,
-      "publication": "draft",
+      "publication": "published",
       "availability": "Available Soon"
     },
     {
