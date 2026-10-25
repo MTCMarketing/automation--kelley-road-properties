@@ -1,6 +1,6 @@
 {
   "note": "Written from the CMS by automation--kelley-road-properties. Do not edit by hand.",
-  "version": "2026-10-25T22:58:19.791415+00:00",
+  "version": "2026-10-25T22:59:33.533674+00:00",
   "properties": [
     {
       "id": "kr-001",
@@ -211,7 +211,7 @@
       "rent": 0,
       "slug": "vista-park-studios",
       "type": "Studio",
-      "title": "1 Bedroom studio ",
+      "title": "One Bedroom Studio ",
       "summary": "A compact studio close to the park, with a separate bathroom and a kitchen along one wall.",
       "bedrooms": 0,
       "imageAlt": "A sunlit studio apartment with a taupe modular sofa beside floor-to-ceiling windows, a white brick column with a slim counter shelf and cage pendant lights, and a bed with a sheepskin throw in the sleeping area beyond.",
